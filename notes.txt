@@ -1,0 +1,30 @@
+## to get authentication system in next without make it from zero we will user clerk module
+## to use it go to clerk.com and create one
+
+## auth() and currentUser()
+    **NOTE: this two helpers (auth() and currentUser()) --> not working on client side (client components) -> EX in --> dashboard/page.tsx**
+    **NOTE: to read this data on client side we need to use hooks(useAuth() and useUser() --> from @clerk/nextjs) -> I use EX: in components/counter.tsx**
+
+## User Roles and Permissions
+## Role-Base Access Control (RBAC) -> using clerk (video #90)
+- Clerk gives us something called user metadata, which is like a storage space for extra user information
+- we'll use it to store user roles
+- publicMetadata because it's read-only in the browser, making it super secure for storing sensitive information like user roles
+- to build a basic RBAC system, we need to make sure this publicMetadata is readily available in the session token
+- we can quickly check user roles without having to make extra network requests every time we need this information
+**NOTE: globals.d.ts (extention)
+    |_ دي معناها ان بعرف تايب سكريبت او جافا بمتغيرات جلوبال يعني اقدر استخدمها في اي حته
+    |_ EX:
+        declare global {
+            var MY_GLOBAL: string;
+        }
+        export {};
+        |_ فده بيخلي TypeScript يعرف إن فيه متغير جلوبال اسمه MY_GLOBAL ونوعه string موجود في أي مكان في المشروع.
+            |_ بكل بساطة، في أي ملف TypeScript/JavaScript تقدر تكتبه مباشرة من غير ما تعمله import:
+                |_  MY_GLOBAL = "Hello World"; // تعيين قيمة
+                    console.log(MY_GLOBAL);    // طباعة القيمة 
+        |_ **NOTE: لاحظ ممكن كمان اعمل في تايب عادي واعمله اكسبورت ذي مابعمل في تايب سكريبت 
+
+**NOTE:
+    |_ To customize redirect after signin or signup after auth look at .env.local
+    |_ To customize domain of authentication(signin|signup) to your domain look at .env.local
